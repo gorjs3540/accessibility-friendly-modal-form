@@ -9,10 +9,12 @@ export const Input = ({ label, error, id, ...props }: InputProps) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputId}>{label}</label>
+      <label className="text-md font-bold" htmlFor={inputId}>
+        {label}
+      </label>
       <input
+        className="flex p-2 border border-gray-300 rounded-md"
         id={inputId}
-        className="flex p-2"
         aria-invalid={!!error}
         aria-describedby={error ? errorId : undefined}
         {...props}

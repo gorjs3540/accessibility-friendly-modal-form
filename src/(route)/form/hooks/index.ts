@@ -1,1 +1,1 @@
-export * from "./useFormDialog";
+export * from "../../../hooks/useDialog";
