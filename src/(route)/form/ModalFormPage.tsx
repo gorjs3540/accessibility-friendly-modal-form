@@ -41,10 +41,10 @@ const FormDialog = ({
       dialogRef={dialogRef}
       onDimmerClick={handleClose}
       header={
-        <>
+        <Dialog.Header>
           <h2 className="text-2xl font-bold">신청 폼</h2>
           <p>이메일과 FE 경력 연차 등 간단한 정보를 입력해주세요.</p>
-        </>
+        </Dialog.Header>
       }
       footer={
         <Dialog.Footer className="flex justify-end">
