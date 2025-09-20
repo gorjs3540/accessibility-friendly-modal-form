@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import Dialog from "../components/Dialog";
 import { Input, Select } from "../components";
 import { useEscapeKey } from "./useEscapeKey";
+import { useForm } from "react-hook-form";
 
 export const useFormDialog = () => {
   const overlay = useOverlay();
@@ -28,6 +29,8 @@ const FormDialog = ({
 }) => {
   useEscapeKey(close);
 
+  const { register, handleSubmit } = useForm();
+
   return (
     <Dialog
       open={isOpen}
@@ -40,14 +43,22 @@ const FormDialog = ({
       }
       footer={
         <Dialog.Footer className="flex justify-end">
-          <button>취소</button>
-          <button>제출하기</button>
+          <button onClick={close}>취소</button>
+          <button type="submit" form="dialog-form">
+            제출하기
+          </button>
         </Dialog.Footer>
       }
     >
-      <div className="flex flex-col p-5 gap-4">
-        <Input label="이름 / 닉네임" autoFocus />
-        <Input label="이메일" />
+      <form
+        id="dialog-form"
+        className="flex flex-col p-5 gap-4"
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+        })}
+      >
+        <Input label="이름 / 닉네임" autoFocus {...register("name")} />
+        <Input label="이메일" {...register("email")} />
         <Select
           label="FE 경력 연차"
           options={[
@@ -55,9 +66,10 @@ const FormDialog = ({
             { label: "4-7년", value: "select-2" },
             { label: "8년이상", value: "select-3" },
           ]}
+          {...register("experience")}
         />
-        <Input label="GitHub 링크 (선택)" />
-      </div>
+        <Input label="GitHub 링크 (선택)" {...register("github")} />
+      </form>
     </Dialog>
   );
 };
