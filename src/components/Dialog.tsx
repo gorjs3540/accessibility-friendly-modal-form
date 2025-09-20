@@ -1,43 +1,45 @@
 import clsx from "clsx";
 import type { HTMLAttributes } from "react";
+import { type RefObject, type ReactNode, useRef } from "react";
 
 interface Props {
-  open: boolean;
+  dialogRef: RefObject<HTMLDialogElement | null>;
   onDimmerClick: () => void;
 
-  header: React.ReactNode;
-  children: React.ReactNode;
-  footer: React.ReactNode;
+  header: ReactNode;
+  children: ReactNode;
+  footer: ReactNode;
 }
 
 export default function Dialog({
-  open,
+  dialogRef,
   onDimmerClick,
   header,
   children,
   footer,
 }: Props) {
-  if (!open) {
-    return null;
-  }
-
   return (
-    <>
-      <DialogContainer>
-        <Dimmer onClick={onDimmerClick} />
-        <div className="w-[80vw] pb-0 opacity-100 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-[2] bg-white rounded-[28px] overflow-hidden">
-          {header}
-          {children}
-          {footer}
-        </div>
-      </DialogContainer>
-    </>
+    <DialogContainer dialogRef={dialogRef}>
+      <Dimmer onClick={onDimmerClick} />
+      <div className="w-[80vw] pb-0 opacity-100 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-[2] bg-white rounded-[28px] overflow-hidden">
+        {header}
+        {children}
+        {footer}
+      </div>
+    </DialogContainer>
   );
 }
 
-function DialogContainer({ children }: { children: React.ReactNode }) {
+function DialogContainer({
+  children,
+  dialogRef,
+}: {
+  children: ReactNode;
+  dialogRef: RefObject<HTMLDialogElement | null>;
+}) {
   return (
     <dialog
+      ref={dialogRef}
       className="fixed w-full h-full flex flex-col justify-center items-center inset-0 z-[1]"
       aria-modal="true"
     >
