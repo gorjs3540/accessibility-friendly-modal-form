@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import ModalFormPage from "./ModalFormPage";
+import ModalFormPage from "./(route)/form/ModalFormPage";
 import { OverlayProvider } from "@toss/use-overlay";
 
 import "./globalStyle.css";
