@@ -1,7 +1,7 @@
 import { useOverlay } from "@toss/use-overlay";
 import { useMemo } from "react";
 import Dialog from "../../../components/Dialog";
-import { Input, Select } from "../../../components";
+import { Button, Input, Select } from "../../../components";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { useForm } from "react-hook-form";
 
@@ -47,10 +47,12 @@ const FormDialog = ({
       }
       footer={
         <Dialog.Footer className="flex justify-end">
-          <button onClick={close}>취소</button>
-          <button type="submit" form="dialog-form">
+          <Button className="bg-gray-300 active:bg-gray-400" onClick={close}>
+            취소
+          </Button>
+          <Button type="submit" form="dialog-form">
             제출하기
-          </button>
+          </Button>
         </Dialog.Footer>
       }
     >
