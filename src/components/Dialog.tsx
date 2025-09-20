@@ -38,12 +38,10 @@ function DialogContainer({
   dialogRef: RefObject<HTMLDialogElement | null>;
 }) {
   return (
-    <dialog
-      ref={dialogRef}
-      className="fixed w-full h-full flex flex-col justify-center items-center inset-0 z-[1]"
-      aria-modal="true"
-    >
-      {children}
+    <dialog ref={dialogRef} className="backdrop:bg-black/20" aria-modal="true">
+      <div className="fixed w-full h-full flex flex-col justify-center items-center inset-0 z-[1]">
+        {children}
+      </div>
     </dialog>
   );
 }
