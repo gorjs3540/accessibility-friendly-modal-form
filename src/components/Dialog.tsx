@@ -66,6 +66,23 @@ Dialog.Header = function DialogHeader({
   );
 };
 
+Dialog.Content = function DialogContent({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={clsx(
+        "flex flex-col p-5 gap-2 max-h-[50vh] overflow-y-auto",
+        className,
+      )}
+      {...props}
+    >
+      {props.children}
+    </div>
+  );
+};
+
 Dialog.Footer = function DialogFooter({
   className,
   ...props

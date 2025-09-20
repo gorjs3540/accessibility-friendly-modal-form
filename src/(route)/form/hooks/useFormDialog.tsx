@@ -41,7 +41,7 @@ const FormDialog = ({
       onDimmerClick={close}
       header={
         <Dialog.Header>
-          <h2>신청 폼</h2>
+          <h2 className="text-2xl font-bold">신청 폼</h2>
           <p>이메일과 FE 경력 연차 등 간단한 정보를 입력해주세요.</p>
         </Dialog.Header>
       }
@@ -56,35 +56,41 @@ const FormDialog = ({
         </Dialog.Footer>
       }
     >
-      <form
-        id="dialog-form"
-        className="flex flex-col p-5 gap-4"
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
-        <Input
-          label="이름 / 닉네임"
-          error={errors.name?.message as string}
-          autoFocus
-          {...register("name", nameValidation)}
-        />
-        <Input
-          label="이메일"
-          error={errors.email?.message as string}
-          {...register("email", emailValidation)}
-        />
-        <Select
-          label="FE 경력 연차"
-          options={[
-            { label: "0-3년", value: "select-1" },
-            { label: "4-7년", value: "select-2" },
-            { label: "8년이상", value: "select-3" },
-          ]}
-          {...register("experience")}
-        />
-        <Input label="GitHub 링크 (선택)" {...register("github")} />
-      </form>
+      <Dialog.Content>
+        <form
+          id="dialog-form"
+          className="flex flex-col gap-4"
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
+        >
+          <Input
+            label="이름 / 닉네임"
+            error={errors.name?.message as string}
+            autoFocus
+            {...register("name", nameValidation)}
+          />
+          <Input
+            label="이메일"
+            error={errors.email?.message as string}
+            {...register("email", emailValidation)}
+          />
+          <Select
+            label="FE 경력 연차"
+            options={[
+              { label: "0-3년", value: "select-1" },
+              { label: "4-7년", value: "select-2" },
+              { label: "8년이상", value: "select-3" },
+            ]}
+            {...register("experience")}
+          />
+          <Input
+            label="GitHub 링크 (선택)"
+            placeholder="https://github.com/username"
+            {...register("github")}
+          />
+        </form>
+      </Dialog.Content>
     </Dialog>
   );
 };
