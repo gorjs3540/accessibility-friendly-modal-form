@@ -29,7 +29,11 @@ const FormDialog = ({
 }) => {
   useEscapeKey(close);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <Dialog
@@ -57,8 +61,17 @@ const FormDialog = ({
           console.log(data);
         })}
       >
-        <Input label="이름 / 닉네임" autoFocus {...register("name")} />
-        <Input label="이메일" {...register("email")} />
+        <Input
+          label="이름 / 닉네임"
+          error={errors.name?.message as string}
+          autoFocus
+          {...register("name", nameValidation)}
+        />
+        <Input
+          label="이메일"
+          error={errors.email?.message as string}
+          {...register("email", emailValidation)}
+        />
         <Select
           label="FE 경력 연차"
           options={[
@@ -72,4 +85,16 @@ const FormDialog = ({
       </form>
     </Dialog>
   );
+};
+
+const nameValidation = {
+  required: "이름 / 닉네임을 입력해주세요",
+};
+
+const emailValidation = {
+  required: "이메일을 입력해주세요",
+  pattern: {
+    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+    message: "올바른 이메일 형식을 입력해주세요",
+  },
 };
