@@ -2,6 +2,7 @@ import { useOverlay } from "@toss/use-overlay";
 import { useMemo } from "react";
 import Dialog from "../components/Dialog";
 import { Input, Select } from "../components";
+import { useEscapeKey } from "./useEscapeKey";
 
 export const useFormDialog = () => {
   const overlay = useOverlay();
@@ -9,8 +10,8 @@ export const useFormDialog = () => {
   return useMemo(
     () => ({
       open: () =>
-        overlay.open(({ close }) => (
-          <FormDialog open={true} onDimmerClick={close} />
+        overlay.open(({ isOpen, close }) => (
+          <FormDialog isOpen={isOpen} close={close} />
         )),
       close: () => overlay.close(),
     }),
@@ -19,16 +20,18 @@ export const useFormDialog = () => {
 };
 
 const FormDialog = ({
-  open,
-  onDimmerClick,
+  isOpen,
+  close,
 }: {
-  open: boolean;
-  onDimmerClick: () => void;
+  isOpen: boolean;
+  close: () => void;
 }) => {
+  useEscapeKey(close);
+
   return (
     <Dialog
-      open={open}
-      onDimmerClick={onDimmerClick}
+      open={isOpen}
+      onDimmerClick={close}
       header={
         <Dialog.Header>
           <h2>신청 폼</h2>
