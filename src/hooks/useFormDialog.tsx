@@ -46,7 +46,7 @@ const FormDialog = ({
       }
     >
       <div className="flex flex-col p-5 gap-4">
-        <Input label="이름 / 닉네임" />
+        <Input label="이름 / 닉네임" autoFocus />
         <Input label="이메일" />
         <Select label="FE 경력 연차" />
         <Input label="GitHub 링크 (선택)" />
