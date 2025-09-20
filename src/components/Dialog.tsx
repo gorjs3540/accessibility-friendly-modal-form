@@ -1,4 +1,5 @@
-import type { PropsWithChildren } from "react";
+import clsx from "clsx";
+import type { HTMLAttributes } from "react";
 
 interface Props {
   open: boolean;
@@ -27,7 +28,6 @@ export default function Dialog({
         <div className="w-[80vw] pb-0 opacity-100 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-[2] bg-white rounded-[28px] overflow-hidden">
           {header}
           {children}
-          <div className="h-8" />
           {footer}
         </div>
       </DialogContainer>
@@ -52,10 +52,24 @@ function Dimmer({ onClick }: { onClick: () => void }) {
   );
 }
 
-Dialog.Header = function DialogHeader(props: PropsWithChildren) {
-  return <div className="flex flex-col p-5 gap-2">{props.children}</div>;
+Dialog.Header = function DialogHeader({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={clsx("flex flex-col p-5 gap-2", className)} {...props}>
+      {props.children}
+    </div>
+  );
 };
 
-Dialog.Footer = function DialogFooter(props: PropsWithChildren) {
-  return <div className="flex p-5 gap-2">{props.children}</div>;
+Dialog.Footer = function DialogFooter({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={clsx("flex p-5 gap-2", className)} {...props}>
+      {props.children}
+    </div>
+  );
 };
