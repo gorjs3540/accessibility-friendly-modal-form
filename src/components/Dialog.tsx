@@ -37,9 +37,12 @@ export default function Dialog({
 
 function DialogContainer({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed w-full h-full flex flex-col justify-center items-center inset-0 z-[1]">
+    <dialog
+      className="fixed w-full h-full flex flex-col justify-center items-center inset-0 z-[1]"
+      aria-modal="true"
+    >
       {children}
-    </div>
+    </dialog>
   );
 }
 
