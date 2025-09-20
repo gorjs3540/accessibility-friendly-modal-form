@@ -1,8 +1,8 @@
-import Dialog from "../../components/Dialog";
-import { Button, Input, Select } from "../../components";
-import { useForm } from "react-hook-form";
-import { useDialog } from "../../hooks/useDialog";
 import type { RefObject } from "react";
+import { useForm } from "react-hook-form";
+
+import { Button, Input, Select, Dialog } from "../../components";
+import { useDialog } from "../../hooks";
 
 export const ModalFormPage = () => {
   const { dialogRef, open, close } = useDialog();
@@ -27,22 +27,31 @@ const FormDialog = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const handleClose = () => {
+    close();
+    reset();
+  };
 
   return (
     <Dialog
       dialogRef={dialogRef}
-      onDimmerClick={close}
+      onDimmerClick={handleClose}
       header={
-        <Dialog.Header>
+        <>
           <h2 className="text-2xl font-bold">신청 폼</h2>
           <p>이메일과 FE 경력 연차 등 간단한 정보를 입력해주세요.</p>
-        </Dialog.Header>
+        </>
       }
       footer={
         <Dialog.Footer className="flex justify-end">
-          <Button className="bg-gray-300 active:bg-gray-400" onClick={close}>
+          <Button
+            className="bg-gray-300 active:bg-gray-400"
+            onClick={handleClose}
+          >
             취소
           </Button>
           <Button type="submit" form="dialog-form">
@@ -55,9 +64,9 @@ const FormDialog = ({
         <form
           id="dialog-form"
           className="flex flex-col gap-4"
-          method="dialog"
           onSubmit={handleSubmit((data) => {
             console.log(data);
+            handleClose();
           })}
         >
           <Input

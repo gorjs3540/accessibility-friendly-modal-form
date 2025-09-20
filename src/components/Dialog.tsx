@@ -1,22 +1,20 @@
+import type { HTMLAttributes, RefObject, ReactNode } from "react";
 import clsx from "clsx";
-import type { HTMLAttributes } from "react";
-import { type RefObject, type ReactNode, useRef } from "react";
 
 interface Props {
   dialogRef: RefObject<HTMLDialogElement | null>;
-  onDimmerClick: () => void;
-
   header: ReactNode;
   children: ReactNode;
   footer: ReactNode;
+  onDimmerClick: () => void;
 }
 
 export default function Dialog({
   dialogRef,
-  onDimmerClick,
   header,
   children,
   footer,
+  onDimmerClick,
 }: Props) {
   return (
     <DialogContainer dialogRef={dialogRef}>
